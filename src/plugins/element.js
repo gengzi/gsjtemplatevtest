@@ -15,7 +15,9 @@ import {
   Menu,
   Submenu,
   MenuItemGroup,
-  MenuItem
+  MenuItem,
+  Tabs,
+  TabPane
 } from 'element-ui'
 
 // 使用这些组件
@@ -33,6 +35,8 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItemGroup)
 Vue.use(MenuItem)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 // 不需要设置这个
 // Vue.use(Message)

@@ -95,7 +95,9 @@ export default {
       // 菜单项是否展开关闭
       isCollapse: false,
       // 当前激活的菜单
-      activePath: null
+      activePath: null,
+      // 标签页
+      editableTabs: []
     }
   },
   // 生命周期函数（钩子函数）- 创建时，去获取菜单数据
@@ -133,6 +135,14 @@ export default {
       // 点击二级菜单的时候保存被点击的二级菜单信息，在初始化的时候，再赋值回去
       window.sessionStorage.setItem('activePath', path)
       this.activePath = path
+
+      // // 创建一个table 标签页
+      // let newTabName = ++this.tabIndex + ''
+      // this.editableTabs.push({
+      //   title: '用户列表',
+      //   name: newTabName
+      // })
+      // this.editableTabsValue = newTabName
     }
   }
 }
@@ -175,6 +185,7 @@ export default {
   height: 28px;
 }
 .el-main {
+  padding: 5px;
   background-color: #f2edf3;
 }
 .el-menu {
