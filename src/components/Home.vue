@@ -31,6 +31,7 @@
             :collapse="isCollapse"
             :collapse-transition="false"
             :router="true"
+            :default-active="activePath"
           >
             <!-- 菜单项 -->
             <!-- 一级菜单 index:唯一标志 -->
@@ -43,13 +44,16 @@
                 <!-- 菜单项图标 -->
                 <i :class="iconsObj[menuItem.id]"></i>
                 <!-- 菜单项内容 -->
-                <span slot="title">{{ menuItem.authName }}</span>
+                <span style="margin-left:5px" slot="title">{{
+                  menuItem.authName
+                }}</span>
               </template>
               <!-- 二级菜单 -->
               <el-menu-item
                 :index="'/' + menuItem.path"
                 v-for="menu in menuItem.children"
                 :key="menu.id"
+                @click="saveNavPath('/' + menuItem.path)"
               >
                 <template slot="title">
                   <!-- 菜单项图标 -->
@@ -80,6 +84,7 @@ export default {
     return {
       // 侧边菜单项数据
       menuList: null,
+      // 菜单项的图标数据
       iconsObj: {
         '125': 'iconfont icon-user',
         '103': 'iconfont icon-tijikongjian',
@@ -87,13 +92,18 @@ export default {
         '102': 'iconfont icon-danju',
         '145': 'iconfont icon-baobiao'
       },
-      isCollapse: false
+      // 菜单项是否展开关闭
+      isCollapse: false,
+      // 当前激活的菜单
+      activePath: null
     }
   },
   // 生命周期函数（钩子函数）- 创建时，去获取菜单数据
   created() {
     // 调用获取侧边菜单数据方法
     this.getMenuItems()
+    // 获取当前路径对选中的二级菜单
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     // 获取菜单项数据
@@ -117,6 +127,12 @@ export default {
     // 菜单栏水平展开关闭
     toggleCollapse() {
       this.isCollapse = !this.isCollapse
+    },
+    // 保存当前点击的菜单项
+    saveNavPath(path) {
+      // 点击二级菜单的时候保存被点击的二级菜单信息，在初始化的时候，再赋值回去
+      window.sessionStorage.setItem('activePath', path)
+      this.activePath = path
     }
   }
 }
